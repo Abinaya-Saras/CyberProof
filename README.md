@@ -1,6 +1,5 @@
 # CyberProof — Scope-Aware Attestation Verifier for Cyber Insurance
 
-**CyberForge 2026 Hackathon | AI & Cybersecurity Track**
 
 ## What it does
 
