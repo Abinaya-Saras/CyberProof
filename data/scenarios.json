@@ -1,0 +1,126 @@
+[
+  {
+    "id": "acme_mfa",
+    "title": "Acme Textiles — MFA registration ≠ enforcement",
+    "description": "Acme claims MFA is enforced for all 20 privileged accounts, but only submits a registration report covering 17 users. Registration does not prove enforcement.",
+    "claim": {
+      "company_name": "Acme Textiles",
+      "control_type": "MFA",
+      "control_subtype": "enforced",
+      "scope": "all privileged accounts",
+      "scope_size": 20,
+      "policy_signing_date": "2026-09-01"
+    },
+    "evidence": [
+      {
+        "description": "MFA Registration Report — HR & IT dept (Sept 2026)",
+        "evidence_type": "mfa_registration_report",
+        "entities_covered": 17,
+        "evidence_date": "2026-08-15",
+        "proves_subtype": "registered"
+      }
+    ]
+  },
+  {
+    "id": "bravo_no_evidence",
+    "title": "Bravo Corp — No evidence submitted",
+    "description": "Bravo Corp claims endpoint protection is enabled on all 50 workstations but submits no supporting documents.",
+    "claim": {
+      "company_name": "Bravo Corp",
+      "control_type": "Endpoint Protection",
+      "control_subtype": "enabled",
+      "scope": "all employee workstations",
+      "scope_size": 50,
+      "policy_signing_date": "2026-08-01"
+    },
+    "evidence": []
+  },
+  {
+    "id": "charlie_backup",
+    "title": "Charlie Inc — Incomplete backup coverage",
+    "description": "Charlie claims all 12 production servers have tested backups, but the audit report only covers 8 servers.",
+    "claim": {
+      "company_name": "Charlie Inc",
+      "control_type": "Backup",
+      "control_subtype": "tested",
+      "scope": "all production servers",
+      "scope_size": 12,
+      "policy_signing_date": "2026-07-15"
+    },
+    "evidence": [
+      {
+        "description": "Quarterly Backup Test Report — Prod Servers (June 2026)",
+        "evidence_type": "backup_test_report",
+        "entities_covered": 8,
+        "evidence_date": "2026-06-30",
+        "proves_subtype": "tested"
+      }
+    ]
+  },
+  {
+    "id": "delta_confirmed",
+    "title": "Delta Ltd — Full MFA enforcement confirmed",
+    "description": "Delta claims MFA is enforced for all 15 privileged accounts. Evidence is an enforcement log covering all 15, dated before policy signing.",
+    "claim": {
+      "company_name": "Delta Ltd",
+      "control_type": "MFA",
+      "control_subtype": "enforced",
+      "scope": "all privileged accounts",
+      "scope_size": 15,
+      "policy_signing_date": "2026-10-01"
+    },
+    "evidence": [
+      {
+        "description": "MFA Enforcement Log — Identity Provider (Sept 2026)",
+        "evidence_type": "mfa_enforcement_log",
+        "entities_covered": 15,
+        "evidence_date": "2026-09-20",
+        "proves_subtype": "enforced"
+      }
+    ]
+  },
+  {
+    "id": "echo_contradicted",
+    "title": "Echo Co — Endpoint protection explicitly disabled",
+    "description": "Echo Co claims endpoint protection is enabled, but the submitted security audit log shows AV was disabled on all workstations during the policy period.",
+    "claim": {
+      "company_name": "Echo Co",
+      "control_type": "Endpoint Protection",
+      "control_subtype": "enabled",
+      "scope": "all workstations",
+      "scope_size": 30,
+      "policy_signing_date": "2026-09-15"
+    },
+    "evidence": [
+      {
+        "description": "Security Audit Log — AV disabled on all endpoints (Aug 2026)",
+        "evidence_type": "endpoint_protection_disabled_log",
+        "entities_covered": 30,
+        "evidence_date": "2026-08-20",
+        "proves_subtype": "contradicts"
+      }
+    ]
+  },
+  {
+    "id": "foxtrot_outdated",
+    "title": "Foxtrot LLC — Evidence dated after policy signing",
+    "description": "Foxtrot submits a valid MFA enforcement log, but it is dated two weeks after the policy signing date and therefore cannot be admitted as pre-signing evidence.",
+    "claim": {
+      "company_name": "Foxtrot LLC",
+      "control_type": "MFA",
+      "control_subtype": "enforced",
+      "scope": "all admin accounts",
+      "scope_size": 10,
+      "policy_signing_date": "2026-06-01"
+    },
+    "evidence": [
+      {
+        "description": "MFA Enforcement Log — Admin Portal (June 2026)",
+        "evidence_type": "mfa_enforcement_log",
+        "entities_covered": 10,
+        "evidence_date": "2026-06-15",
+        "proves_subtype": "enforced"
+      }
+    ]
+  }
+]
