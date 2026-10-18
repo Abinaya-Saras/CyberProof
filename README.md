@@ -1,117 +1,114 @@
 # CyberProof — Scope-Aware Attestation Verifier for Cyber Insurance
 
-> **CyberForge 2026 Hackathon — AI & Cybersecurity track**
-> All data is entirely fictional. No real companies or security controls are represented.
-
----
+**CyberForge 2026 Hackathon | AI & Cybersecurity Track**
 
 ## What it does
 
-CyberProof checks whether submitted evidence genuinely supports a cyber-insurance security claim.  
-It runs three deterministic checks on every claim:
+Cyber-insurance underwriting often relies on organizations reporting their security controls. However, submitted evidence may not prove that a control is enforced, covers every relevant system, or was in place by the policy signing date.
+
+**CyberProof checks whether submitted evidence supports the specific cybersecurity claim being made.**
+
+It performs four deterministic checks:
 
 | Check | Question |
 |---|---|
-| **Evidence exists** | Was any evidence submitted at all? |
-| **Signing date** | Is all evidence dated on or before the policy signing date? |
-| **Coverage** | Does evidence cover all entities in the claim scope? |
-| **Strength** | Does evidence prove the *specific control level* claimed? |
+| **Evidence existence** | Was any evidence submitted? |
+| **Signing date** | Is the evidence dated on or before the policy signing date? |
+| **Coverage** | Does the evidence cover all entities in the claim scope? |
+| **Evidence strength** | Does the evidence prove the specific control level claimed? |
 
-Each claim receives one of three verdicts:
+### Verification verdicts
 
-- ✅ **CONFIRMED** — all checks pass.
-- ⚠️ **CAN'T VERIFY** — evidence is missing, outdated, incomplete, or too weak.
-- ❌ **CONTRADICTED** — evidence actively disproves the claim.
+- ✅ **CONFIRMED** — Evidence satisfies the implemented verification rules.
+- ⚠️ **CAN'T VERIFY** — Evidence is missing, incomplete, outdated, or insufficient.
+- ❌ **CONTRADICTED** — Evidence explicitly conflicts with the claim.
 
-**Key property:** deterministic Python decides the verdict. AI is not involved.  
-No unexpected error can produce a false CONFIRMED result.
-
----
-
-## Setup
-
-```bash
-# Clone or navigate to the project
-cd cyb3rknight5
-
-# Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate      # Windows: .venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
----
-
-## Run the tests
-
-```bash
-pytest tests/ -v
-```
-
-All 8 tests must pass before running the demo.
-
----
-
-## Run the app
-
-```bash
-streamlit run app.py
-```
-
-The app opens in your browser at `http://localhost:8501`.  
-Use the sidebar dropdown to switch between the six pre-built scenarios.
-
----
-
-## Project structure
-
-```
-cyb3rknight5/
-├── data/
-│   └── scenarios.json          # Synthetic claim + evidence scenarios
-├── cyberproof/
-│   ├── __init__.py
-│   ├── models.py               # Pydantic data models
-│   ├── engine.py               # Deterministic verdict engine
-│   └── reason_codes.py         # Reason code constants and messages
-├── tests/
-│   └── test_engine.py          # Pytest unit tests
-├── app.py                      # Streamlit UI
-├── requirements.txt
-└── README.md
-```
-
----
+**Key property:** Python rules determine the verdict; AI is not involved in the current verification engine. Missing or insufficient evidence must not produce a CONFIRMED verdict under the implemented rules.
 
 ## Scenarios included
 
 | # | Company | Verdict | Reason |
 |---|---|---|---|
-| 1 | Acme Textiles | CAN'T VERIFY | MFA registration ≠ enforcement |
+| 1 | Acme Textiles | CAN'T VERIFY | MFA registration does not prove enforcement |
 | 2 | Bravo Corp | CAN'T VERIFY | No evidence submitted |
 | 3 | Charlie Inc | CAN'T VERIFY | Backup coverage: 8 of 12 servers |
-| 4 | Delta Ltd | CONFIRMED | Full MFA enforcement with valid date |
-| 5 | Echo Co | CONTRADICTED | AV explicitly disabled |
+| 4 | Delta Ltd | CONFIRMED | Evidence supports full MFA enforcement with a valid date |
+| 5 | Echo Co | CONTRADICTED | Antivirus explicitly disabled |
 | 6 | Foxtrot LLC | CAN'T VERIFY | Evidence dated after policy signing |
 
----
+All scenarios use fictional companies and synthetic evidence.
 
-## Dependencies
+## Technology stack
 
-| Package | Version | Purpose |
-|---|---|---|
-| streamlit | ≥1.35.0 | Web UI |
-| pydantic | ≥2.7.0 | Data validation |
-| pytest | ≥8.0.0 | Testing |
+| Technology | Purpose |
+|---|---|
+| Python | Verification engine |
+| Streamlit | Interactive dashboard |
+| Pydantic | Data validation |
+| JSON | Demonstration scenarios |
+| pytest | Automated testing |
 
-No OpenAI or LLM API key required.
+No LLM API key is required.
 
----
+## Project structure
+
+```text
+CyberProof/
+├── data/
+│   └── scenarios.json
+├── cyberproof/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── engine.py
+│   └── reason_codes.py
+├── tests/
+│   └── test_engine.py
+├── app.py
+├── requirements.txt
+└── README.md
+```
+
+## Setup and usage
+
+```bash
+git clone https://github.com/Abinaya-Saras/CyberProof.git
+cd CyberProof
+
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+On Windows, activate the environment with `.venv\Scripts\activate`.
+
+Run the tests:
+
+```bash
+pytest tests/ -v
+```
+
+Launch the application:
+
+```bash
+streamlit run app.py
+```
+
+Open `http://localhost:8501` and select a scenario from the sidebar.
+
+## Limitations and future scope
+
+The current prototype uses deterministic verification rules and predefined synthetic scenarios. Automated AI-based document extraction and integrations with real-world evidence sources are potential future enhancements. Further testing and validation are required before production deployment.
+
+## References
+
+1. Woods, D. W., Agrafiotis, I., Nurse, J. R. C., & Creese, S. (2017). [Mapping the coverage of security controls in cyber insurance proposal forms](https://doi.org/10.1186/s13174-017-0059-y). *Journal of Internet Services and Applications*.
+
+2. [Cyber insurance: State of the art, trends and future directions](https://pmc.ncbi.nlm.nih.gov/articles/PMC9841933/) (2023).
+
+3. Weinstock, C., & Lipson, H. F. (2013). [Evidence of Assurance: Laying the Foundation for a Credible Security Case](https://www.sei.cmu.edu/library/evidence-of-assurance-laying-the-foundation-for-a-credible-security-case/). Carnegie Mellon Software Engineering Institute.
+
+These references inform CyberProof's approach to cyber-insurance evidence verification and security assurance.
 
 ## Disclaimer
 
-This tool is a hackathon prototype built for demonstration purposes only.  
-It makes no claim of real-world accuracy, legal validity, or production readiness.  
-All companies, scenarios, and data are entirely fictional.
+CyberProof addresses the real-world challenge of verifying cybersecurity claims during cyber-insurance underwriting. This prototype demonstrates an evidence-based verification approach using synthetic data. All demonstration companies and evidence are fictional. Further validation and integration with real-world evidence sources are required before production deployment.
